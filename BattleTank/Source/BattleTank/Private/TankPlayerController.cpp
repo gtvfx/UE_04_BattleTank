@@ -42,7 +42,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 
     if (GetSightRayHitLocation(HitLocation)) // Has "side-effect": Ray Trace
     {
-        UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), (*HitLocation.ToString()));
+        //UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), (*HitLocation.ToString()));
     }
 
     
@@ -53,6 +53,28 @@ void ATankPlayerController::AimTowardsCrosshair()
 // Get world location of linetrace through crosshair, return true if hits landscape
 bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 {
-    HitLocation = FVector(1.0);
+    // Find the crosshair position
+    int32 ViewportSizeX, ViewportSizeY;
+
+    GetViewportSize(ViewportSizeX, ViewportSizeY);
+
+    auto ScreenLocation = FVector2D(ViewportSizeX * CrossHairXLocation, ViewportSizeY * CrossHairYLocation);
+    //UE_LOG(LogTemp, Warning, TEXT("ScreenLocation: %s"), *ScreenLocation.ToString());
+    FVector LookDirection;
+    // 'De-project' the screen position of the crosshair to a world direction
+    if (GetLookDirection(ScreenLocation, LookDirection))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *LookDirection.ToString());
+    }
+
+    // Line-trace along that LookDirection, and see what we hit (up to max range)
+
     return true;
+}
+
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+{
+    FVector CameraWorldLocation; // Needed for the Deprojection method, but discarded after since we don't need it
+
+    return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, LookDirection);
 }
