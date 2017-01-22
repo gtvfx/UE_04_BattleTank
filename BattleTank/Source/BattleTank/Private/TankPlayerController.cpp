@@ -42,7 +42,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 
     if (GetSightRayHitLocation(HitLocation)) // Has "side-effect": Ray Trace
     {
-        UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), (*HitLocation.ToString()));
+        GetControlledTank()->AimAt(HitLocation);
     }
 }
 
