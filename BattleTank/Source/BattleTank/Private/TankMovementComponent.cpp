@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Gavyn Thompson 2017
 
 #include "BattleTank.h"
 #include "TankTrack.h"
@@ -14,6 +14,7 @@ void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
     // No need to call super. We will do a complete replace of functionality
+
     auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
     auto AIForwardIntention = MoveVelocity.GetSafeNormal();
 
@@ -30,8 +31,6 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(Throw);
-
-    // TODO prevent double-speed from two control inputs
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
@@ -40,6 +39,4 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(-Throw);
-
-    // TODO prevent double-speed from two control inputs
 }
