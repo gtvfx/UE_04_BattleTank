@@ -9,7 +9,6 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
-class UTankMovementComponent;
 class AProjectile;
 
 
@@ -30,14 +29,12 @@ public:
 protected:
     UPROPERTY(BluePrintReadOnly)
     UTankAimingComponent* TankAimingComponent = nullptr;
-    
-    UPROPERTY(BluePrintReadOnly)
-    UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
 	ATank();
 	
+    // TODO Remove once Firing is moved to Aiming Component
     UPROPERTY(EditDefaultsOnly, Category = "Firing")
     float LaunchSpeed = 6000;
 
