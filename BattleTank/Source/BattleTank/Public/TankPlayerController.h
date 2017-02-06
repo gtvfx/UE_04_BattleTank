@@ -17,6 +17,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	
 protected:
 
+
     UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
     void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
