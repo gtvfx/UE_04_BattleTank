@@ -32,8 +32,12 @@ private:
     UPROPERTY(EditDefaultsOnly)
     float LineTraceRange = 1000000;
 
-    virtual void BeginPlay() override;
+	virtual void SetPawn(APawn* InPawn) override;
 
+	UFUNCTION()
+	void OnPossessedTankDeath();
+	
+	virtual void BeginPlay() override;
 
     virtual void Tick(float DeltaTime) override;
 
